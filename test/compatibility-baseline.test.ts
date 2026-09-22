@@ -72,7 +72,7 @@ test('baseline CLI renders HTML outside the Skill root with stable artifact name
   const directory = temporaryDirectory('slide-compat-render-');
   try {
     const output = join(directory, 'index.html');
-    const config = join(root, 'examples', 'v1-valid-consulting-deck.render.yaml');
+    const config = join(root, 'examples', 'v1-valid-consulting-deck.html.render.yaml');
     const result = runCli([
       'render',
       fixture('v1-valid-consulting-deck.md'),
@@ -83,11 +83,13 @@ test('baseline CLI renders HTML outside the Skill root with stable artifact name
       '--out',
       output,
     ]);
-    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.status, 0, `${result.stderr}\n${result.stdout}`);
+    assert.match(result.stderr, /WARNING \[unverified-source-status/);
     assert.match(result.stdout, /Wrote HTML deck to/);
+    assert.match(result.stdout, /Render summary: 0 error\(s\), 1 warning\(s\)\./);
     assert.equal(existsSync(output), true);
-    assert.equal(existsSync(join(directory, 'index.pdf')), true);
-    assert.equal(existsSync(join(directory, 'index.qa.json')), true);
+    assert.equal(existsSync(join(directory, 'index.pdf')), false);
+    assert.equal(existsSync(join(directory, 'index.qa.json')), false);
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }
