@@ -1,0 +1,33 @@
+canvas:
+  width: 13.333
+  height: 7.5
+  width_emu: 12192000
+  height_emu: 6858000
+  safe_margin: 0.93
+
+color:
+  paper: F8F6F1
+  surface: FFFFFF
+  ink: '17212B'
+  muted: '607080'
+  subtle: '87929D'
+  border: D8DEE3
+  accent: '247A82'
+  accent_deep: '1A5961'
+
+type:
+  font_face: Arial
+  cover_title_pt: 28
+  title_pt: 25
+  key_message_pt: 13
+  section_pt: 8
+  body_pt: 12
+  label_pt: 10
+  footnote_pt: 8
+
+layout:
+  header_y: 0.66
+  content_y: 2.45
+  footer_y: 6.82
+  column_gap: 0.38
+  rule_height: 0.05

@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Slide public payload audit policy v1",
+  "version": 1,
+  "status": "approved",
+  "purpose": "Machine-readable policy for auditing public Slide documentation and release payloads. It defines public-theme restrictions, provider-selection boundaries, and sensitive-content checks; it does not authorize distribution or inspect private operator configuration.",
+  "scope": {
+    "include": [
+      ".gitignore",
+      "SKILL.md",
+      "README.md",
+      "docs/**",
+      "workflows/**",
+      "examples/**",
+      "references/styles/<public-theme-id>/**",
+      "src/**",
+      "test/**",
+      "bin/**",
+      "scripts/**",
+      ".github/**",
+      "CONTRIBUTING.md",
+      "SECURITY.md",
+      "CODE_OF_CONDUCT.md",
+      "package.json",
+      "package-lock.json"
+    ],
+    "exclude": [
+      "node_modules/**",
+      ".git/**",
+      "build/**",
+      "coverage/**",
+      ".claude/settings.local.json",
+      ".claude-provider"
+    ],
+    "local_settings_exclusion": {
+      "path": ".claude/settings.local.json",
+      "required_gitignore_entry": ".claude/settings.local.json",
+      "permitted_role": "narrow-project-local-provider-bridge",
+      "forbidden_content": [
+        "real filesystem paths",
+        "provider identities",
+        "credentials",
+        "implementation details",
+        "example values"
+      ],
+      "prohibited_destinations": [
+        "deck Markdown",
+        "render YAML",
+        "profiles",
+        "artifacts",
+        "render plans",
+        "reports",
+        "feedback",
+        "public content",
+        "tracked files"
+      ],
+      "evidence_requirements": [
+        "audit the included .gitignore for the exact local-settings ignore entry",
+        "record local settings as excluded without reading or serializing their content",
+        "scan tracked content for populated bridge keys, bridge values, provider identities, and provider locations",
+        "treat ignore status as staging hygiene, not provider isolation evidence"
+      ]
+    }
+  },
+  "selection_policy": {
+    "public_project_rule": "resolve-only-the-allowlisted-public-theme; prohibit-private-themes",
+    "private_project_precedence": [
+      "deprecated-legacy-environment-bridge-when-present",
+      "xdg-user-registry-preferred-daily-selection",
+      "narrow-project-local-claude-bridge"
+    ],
+    "render_yaml_rule": "canonical-theme-id-only; no-provider-selection-or-location",
+    "failure_rule": "unresolved-invalid-incompatible-unauthorized-or-non-owning-provider-fails-closed; no-fallback"
+  },
+  "allowlist": {
+    "bundled_theme_ids": [
+      "brief-ink"
+    ],
+    "bundled_style_roots": [
+      "references/styles/brief-ink/"
+    ],
+    "allowed_file_extensions": [
+      ".css",
+      ".html",
+      ".js",
+      ".json",
+      ".md",
+      ".mjs",
+      ".svg",
+      ".ts",
+      ".txt",
+      ".yaml",
+      ".yml"
+    ],
+    "allowed_binary_paths": [],
+    "permitted_logical_path_tokens": []
+  },
+  "denylist": {
+    "case_insensitive_text_patterns": [
+      "<private-theme-id>",
+      "<private-provider-name>",
+      "<private-font-name>",
+      "<private-template-name>",
+      "<private-provider-root>",
+      "file://",
+      "(^|[^a-z0-9_])~[/\\\\]",
+      "(^|[^a-z0-9_])/[a-z0-9._-]+/",
+      "[a-z]:[/\\\\]"
+    ],
+    "case_insensitive_path_patterns": [
+      "<private-theme-id>",
+      "<private-provider-name>",
+      "<private-template-name>"
+    ],
+    "forbidden_file_extensions": [
+      ".pdf",
+      ".ppt",
+      ".pptx",
+      ".woff",
+      ".woff2",
+      ".ttf",
+      ".otf"
+    ],
+    "forbidden_filenames": [
+      "<private-template-file>"
+    ]
+  },
+  "audit_rules": [
+    {
+      "id": "public-text-denylist",
+      "target": "utf8-text",
+      "action": "fail",
+      "message": "Public payload text must not disclose private Theme identities, provider implementation details, bridge values, or local filesystem locations."
+    },
+    {
+      "id": "public-path-denylist",
+      "target": "relative-path",
+      "action": "fail",
+      "message": "Public payload filenames and directories must not identify private Themes, providers, templates, or local roots."
+    },
+    {
+      "id": "public-binary-policy",
+      "target": "file-extension",
+      "action": "fail-unless-allowlisted",
+      "message": "Reference templates, fonts, and other binary assets require an explicit independent rights decision and allowlist entry before public distribution."
+    },
+    {
+      "id": "public-theme-allowlist",
+      "target": "resolved-theme-id",
+      "action": "fail-unless-allowlisted",
+      "message": "A public project may resolve only an explicitly allowlisted bundled Theme."
+    },
+    {
+      "id": "private-theme-public-project-ban",
+      "target": "project-policy",
+      "action": "fail",
+      "message": "Public projects cannot use private Themes."
+    },
+    {
+      "id": "local-settings-exclusion-evidence",
+      "target": "local-settings-exclusion",
+      "action": "fail",
+      "message": "The audit must verify the included ignore rule, exclude local settings without reading them, scan tracked content for prohibited placement, and record the resulting evidence."
+    }
+  ],
+  "required_report_fields": [
+    "policy_version",
+    "audit_root",
+    "scanned_paths",
+    "excluded_paths",
+    "text_matches",
+    "path_matches",
+    "binary_matches",
+    "resolved_theme_ids",
+    "selection_policy_evidence",
+    "local_settings_exclusion_evidence",
+    "result"
+  ],
+  "implementation_notes": [
+    "Apply text matching only to UTF-8 text files; report undecodable files separately for binary-policy review.",
+    "Normalize path separators to forward slashes before matching relative paths.",
+    "Evaluate path patterns as embedded text as well as token-start matches; do not flag relative documentation paths or shell options as local roots.",
+    "Substitute approved deployment-specific denylist values outside the scanned public payload; do not store real private identifiers, roots, brands, or aliases in this policy.",
+    "Do not treat this policy as a substitute for private-asset extraction, rights review, or a release decision."
+  ]
+}

@@ -1,0 +1,7 @@
+density_mode: standard
+footer_policy: standard
+asset_policy: strict
+
+qa:
+  fail_on_overflow: true
+  fail_on_missing_asset: true

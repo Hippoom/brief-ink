@@ -1,0 +1,13 @@
+theme: brief-ink
+profile: compact
+
+output:
+  directory: build
+  html: false
+  pdf: false
+  png: false
+  pptx: true
+
+qa:
+  fail_on_overflow: true
+  fail_on_missing_asset: true

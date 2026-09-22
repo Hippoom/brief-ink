@@ -1,0 +1,40 @@
+# brief-ink v1: organization-neutral editorial visual system.
+canvas:
+  width: 1600
+  height: 900
+  safe_margin: 112
+
+color:
+  paper: F8F6F1
+  surface: FFFFFF
+  ink: 17212B
+  muted: 607080
+  subtle: 87929D
+  border: D8DEE3
+  accent: 247A82
+  accent_soft: E1F0EF
+  accent_deep: 1A5961
+  positive: 2E7D5B
+  warning: A96818
+  negative: A74646
+
+type:
+  sans: 'Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif'
+  title_px: 40
+  key_message_px: 19
+  section_px: 13
+  body_px: 18
+  label_px: 15
+  footnote_px: 12
+
+space:
+  xs: 8
+  sm: 16
+  md: 24
+  lg: 36
+  xl: 52
+
+shape:
+  radius: 8
+  border_px: 1
+  shadow: none

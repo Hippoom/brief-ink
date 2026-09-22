@@ -1,0 +1,45 @@
+name: brief-ink
+family: editorial
+palette: ink
+version: 1
+default_profile: default
+
+files:
+  tokens: tokens.yaml
+  visual_rules: visual-rules.md
+
+web:
+  renderer: brief-ink-html-v1
+  templates:
+    cover: cover
+    divider: divider
+    structures:
+      narrative: narrative
+      grouped-items: grouped-items
+      comparison: comparison
+      sequence: sequence
+      layers: layers
+      table: table
+      explore-converge-cycles: explore-converge-cycles
+      primary-supporting-context: primary-supporting-context
+  supported_structures:
+    - narrative
+    - grouped-items
+    - comparison
+    - sequence
+    - layers
+    - table
+    - explore-converge-cycles
+    - primary-supporting-context
+
+pptx:
+  renderer: brief-ink-pptx-v1
+  tokens: pptx.tokens.yaml
+  templates:
+    cover: brief-ink-pptx-cover-v1
+    structures:
+      narrative: brief-ink-pptx-narrative-v1
+      comparison: brief-ink-pptx-comparison-2col-v1
+  supported_structures:
+    - narrative
+    - comparison

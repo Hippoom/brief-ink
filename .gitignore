@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+.idea/
+*.deck.json
+*.render-plan.json
+*.qa.json
+/.claude/
+.claude-provider
+.claude/settings.local.json
+.env
+.env.*
+*.log

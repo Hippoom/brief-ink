@@ -1,0 +1,7 @@
+extends: brief-ink/default
+
+footer_policy: minimal
+asset_policy: allow-placeholder
+
+qa:
+  fail_on_missing_asset: false
