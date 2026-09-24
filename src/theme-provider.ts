@@ -49,6 +49,9 @@ export interface ThemeDefinition {
 /**
  * Theme configuration belongs to its provider. Core passes raw YAML values and
  * accepts only a generic manifest/profile/options result plus structured issues.
+ * Configuration options remain available on the in-process resolved configuration;
+ * they are not serialized into the Render Plan. Private Master/Layout bindings
+ * and other non-public state must remain in adapter runtimeState instead.
  */
 export interface ThemeConfigurationContext {
   readonly themeId: string;

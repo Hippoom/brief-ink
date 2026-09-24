@@ -103,6 +103,9 @@ export async function preparePptxTheme(deck: Deck, config: ResolvedRenderConfig)
 
 /** Render through the prepared adapter; core does not branch on renderer identity. */
 export async function renderPreparedPptxTheme(prepared: PreparedPptxTheme, context: Omit<PptxRenderContext, 'runtime'>): Promise<Uint8Array> {
+  if (prepared.issues.some((item) => item.severity === 'error')) {
+    throw new Error('PPTX Theme preparation has blocking issues; rendering was not started.');
+  }
   const adapter = prepared.adapter;
   if (!adapter || adapter.id !== context.plan.theme.renderer || adapter.id !== context.config.theme.pptx?.renderer) {
     throw new Error(`No PPTX renderer is implemented for declared renderer ${context.config.theme.pptx?.renderer ?? '(none)'}.`);

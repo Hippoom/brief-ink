@@ -57,7 +57,7 @@ Provider resolution is external to render YAML and is fail-closed.
 4. A Git-ignored project-local Claude settings bridge is permitted only as a narrow, explicit bridge; it is not the only selection mechanism.
 5. An unresolved, unauthorized, invalid, incompatible, or non-owning provider or target/profile fails preflight. There is no provider, Theme, adapter, or template fallback.
 
-The XDG registry, legacy bridge, and Claude bridge may not serialize provider locations, identities, credentials, implementation details, or values into deck sources, render YAML, profiles, artifacts, plans, reports, feedback, or public payloads. Git ignore does not establish isolation.
+The XDG registry, legacy bridge, and Claude bridge may not serialize provider locations, identities, credentials, implementation details, or provider-selection values into deck sources, render YAML, profiles, artifacts, plans, reports, feedback, or public payloads. This bridge-selection rule does not govern separately authorized private-project retention of Master/Slide Layout integration evidence; such evidence is not portable public render configuration, and private projects own its disclosure and acceptance policy. Git ignore does not establish isolation.
 
 ## Profile inheritance
 
@@ -93,7 +93,7 @@ A Theme may expose a small, documented deck-wide selector where it is part of th
 
 ## Prohibited configuration
 
-Neither a profile nor a render configuration may set provider selection, provider configuration, CSS, templates, layouts, colors, licensed-resource policy, grids, margins, title placement, component styles, coordinates, dimensions, geometry, `structure`-to-template mappings, or slide-specific overrides. These are maintained Theme or external provider concerns, not project configuration.
+Public render YAML and public profiles may not set provider selection, provider configuration, provider implementation, Master, Slide Layout, Master/Slide Layout Integration manifest, provider-local binding, CSS, templates, layouts, colors, fonts, assets, licensed-resource policy, grids, margins, title placement, component styles, coordinates, dimensions, geometry, `structure`-to-template mappings, or slide-specific overrides. These are maintained Theme or external provider concerns, not public project configuration. An authorized private project may define additional project-local configuration through its own Session/directory policy; it must not be treated as portable public render configuration.
 
 If a project needs a different visual system or an additional semantic template, use a maintained Theme extension and explicit mapping rather than ad hoc overrides.
 

@@ -73,6 +73,7 @@ Compatibility harness assertions normalize temporary directories and platform li
 - A configured Theme may resolve at preflight while lacking a renderer for a requested target; this baseline does not change that behavior.
 - Native static/package QA does not replace application interoperability acceptance.
 - The internal normalized Content Model is not emitted by `parse`, Render Plans, QA reports, or artifacts during the v1/v2 compatibility period; legacy `structure`, `relationship_model`, and template fields remain externally stable.
+- An explicitly selected private Provider may validate a private Master/Slide Layout Integration in adapter preparation. This public baseline does not emit its manifest, Master/Layout bindings, source references, fonts, assets, or runtime state; provider configuration options serialized into a Render Plan must be explicitly public-safe. The validation does not change v1/v2 template planning or Brief Ink behavior. An authorized private project's Session/directory policy may decide whether its own local configuration, plans, CLI output, QA reports, feedback, or artifacts retain those values.
 - Git initialization, package publication, workspace extraction, and distribution release remain deferred. Source-only repository readiness may add CI and public-payload controls without changing runtime behavior.
 
 ## Updating this baseline

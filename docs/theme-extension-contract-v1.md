@@ -38,7 +38,7 @@ Brief Ink is the bundled public reference Theme. An operator-managed private pro
 
 ## Archetype contract
 
-A Theme is a versioned slide design-system package: design tokens, Visual Primitives, Visual Archetypes, Target Compositions, Target Adapters, assets/provenance, fixtures, and Theme-specific QA. The platform's **Content Pattern** and **Relationship Intent** describe semantic content; a Theme's **Visual Archetype** describes a reusable visual contract for eligible semantic input. A **Target Composition** is that Archetype's concrete Web, PPTX, or future target realization. Existing manifest `template` IDs remain compatibility projections during the terminology migration; they are not the long-term architectural term. See [slide terminology architecture v1](slide-terminology-architecture-v1.md).
+A Theme is a versioned presentation design-system package: **Foundations**, executable **Design Tokens**, Visual Primitives, Visual Archetypes, Target Compositions, Target Adapters, assets/provenance, fixtures, and Theme-specific QA. Foundations define reading-oriented rules such as Typography, Color, Spacing, surfaces, and source/footer treatment; they may draw on brand guidance but are not synonymous with it. Design Tokens are the machine-readable expression of those Foundations. The platform's **Content Pattern** and **Relationship Intent** describe semantic content; a Theme's **Visual Archetype** describes a reusable visual contract for eligible semantic input. A **Target Composition** is that Archetype's concrete Web, PPTX, or future target realization. Existing manifest `template` IDs remain compatibility projections during the terminology migration; they are not the long-term architectural term. See [slide terminology architecture v1](slide-terminology-architecture-v1.md).
 
 Each Theme Visual Archetype declares:
 
@@ -54,6 +54,27 @@ fixture coverage and maturity state
 ```
 
 A Slide does not author an Archetype. Render Planning selects one from Slide semantics, Theme, Profile, and target.
+
+## Private Master/Slide Layout Integration
+
+A PowerPoint **Slide Master** and its **Slide Layouts** are optional project-specific implementation resources, not a Theme prerequisite. In the public platform contract, layout names, placeholder counts, and inherited geometry are inventory evidence rather than semantic mappings. An authorized private project may define its own policy for inferring or approving semantic applicability and capacity from those facts; the project owns the resulting mapping's correctness.
+
+An explicitly selected private Theme Provider may own a versioned Master/Slide Layout Integration manifest (for example, `slide-pptx-master-layout-integration/v1`). A private project decides its own authorized Session/directory, storage, reporting, and delivery policy for Master/Layout bindings, resources, fonts, assets, provenance, and interoperability evidence. The public platform and public release payload must not require, discover, or carry those values.
+
+For the current public-provider integration contract, a private Provider's PPTX adapter validates its manifest during `prepare`. At minimum it verifies the supported schema version, selected Theme and PPTX target applicability, required private inputs, and coherence between its compatible PPTX descriptor, explicit structure-to-template projection, and adapter-owned `templateIds`. A successful validation retains the manifest and derived bindings only in opaque adapter runtime state; provider configuration `options` are serialized into the public Render Plan and therefore may contain only values the selected project explicitly approves for that plan. A failure emits a generic provider-owned issue such as `private-master-layout-integration-invalid`, without exposing private identities, locations, or content. A separate private-project implementation may choose different validation, mapping, and reporting rules.
+
+The current public-provider lifecycle remains fail closed:
+
+```text
+explicit private Theme selection
+→ Provider returns the existing compatible descriptor
+→ PPTX adapter validates private integration in prepare()
+→ opaque runtime state remains in process
+→ platform plans through the existing kind/structure → template projection
+→ adapter template-ownership validation
+```
+
+The public platform cannot synthesize a mapping from a closest layout or select another Theme or adapter when a private integration is unavailable or incompatible. A private project may adopt its own explicit, authorized mapping and reporting policy—including whether to record private values in project-local configuration, QA, CLI, feedback, or artifacts—while remaining responsible for semantic preservation, editability, and acceptance. Direct Master reuse or mutation requires a separately maintained private target implementation and interoperability acceptance; this public contract does not imply that the bundled renderer imports a Master file.
 
 ## Adapter contract
 

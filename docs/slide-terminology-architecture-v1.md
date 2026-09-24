@@ -19,11 +19,19 @@ Slide Semantic Model (platform DSL)
         └── Semantic Edges
 
 Theme Design System
+├── Foundations
+│   ├── Typography
+│   ├── Color
+│   ├── Spacing
+│   └── presentation reading rules
 ├── Design Tokens
 ├── Visual Primitives
 ├── Visual Archetypes
 ├── Target Compositions
 └── Target Adapters
+
+Optional project integration (private, Session/directory-scoped)
+└── Master/Slide Layout Integration
 ```
 
 ## Canonical terms
@@ -40,11 +48,14 @@ Theme Design System
 | Semantic Edge | Typed relationship between units, e.g. supports, compares-with, precedes, informs, evaluates, or permits. | ID references such as continuity/handoff fields. |
 | Semantic Slot | Pattern-schema location that accepts a semantic unit or bounded collection. Schema terminology, not author-facing layout terminology. | Internal validation concept. |
 | Pattern Payload | Author-provided pattern-specific data that fills semantic slots. | Typed payloads and bounded Markdown Content. |
-| Theme | Versioned slide design-system package: tokens, primitives, archetypes, target compositions, adapters, fixtures, assets/provenance, and Theme QA. | Theme |
+| Theme | Versioned presentation design-system package: Foundations, Design Tokens, primitives, archetypes, target compositions, adapters, fixtures, assets/provenance, and Theme QA. | Theme |
+| Foundations | Reading-oriented presentation rules such as Typography, Color, Spacing, surfaces, and source/footer treatment. They may incorporate brand guidance but do not require it. | Tokens and visual rules. |
+| Design Tokens | Machine-readable values that implement Foundations and feed target-native primitives. | Tokens/CSS/shapes. |
 | Visual Primitive | Theme-owned building block such as type role, surface, panel, rule, label, connector, or placeholder. | Tokens/CSS/shapes. |
 | Visual Archetype | Theme-owned reusable visual contract for eligible Content Patterns and payload capacity. | Archetype |
 | Target Composition | Visual Archetype realization for one base target. | Manifest template / adapter template ID. |
 | Target Adapter | Explicit target prepare/render/verify implementation using injected runtime services. | `ThemeAdapter` |
+| Master/Slide Layout Integration | Optional private-project PPTX evidence and bindings for approved Slide Master and Slide Layout resources. It is not an Archetype catalog or a public manifest field; project-local integration may use it under its authorized Session/directory policy. | Private Provider or project-local integration state. |
 | Provider | Explicit distribution boundary exposing compatible Themes. | `ThemeProvider` |
 | Profile | Deck-wide communication, consumption, delivery, and QA policy. Not a Theme variant, layout, or provider selector. | Profile |
 | Capability | Declared support state for a Theme, Visual Archetype, Target Composition, Adapter, and applicable Profile constraints. | Existing support declarations. |
@@ -123,8 +134,8 @@ A valid artifact is not automatically a fidelity pass or delivery acceptance. Ge
 
 1. **Phase 0/1**: glossary and pure normalized semantic IR; retain v1/v2 source fields, manifests, plans, templates, CLI, and output behavior.
 2. **Phase 2**: formal Content Pattern registry and opt-in v3 `content_model` authoring; dual-read and report-only migration.
-3. **Phase 3**: optional Theme Visual Archetype and Target Composition manifest metadata; compile legacy template mappings into compatibility projections.
-4. **Phase 4**: Archetype-aware planning and target-adapter composition capability, while retaining legacy plan fields.
+3. **Phase 3**: optional Theme Visual Archetype and Target Composition manifest metadata; compile legacy template mappings into compatibility projections. Provider-private Master/Slide Layout Integration remains separate from this platform metadata and retains no public projection.
+4. **Phase 4**: Archetype-aware planning and target-adapter composition capability, while retaining legacy plan fields. Private integration validation may continue to run in adapter preparation without changing the compatibility projection.
 5. **Phase 5**: formal QA, fidelity, and acceptance evidence model.
 6. **Phase 6**: planned deprecation only after a stable dual-read cycle and separately approved major-version migration.
 

@@ -105,7 +105,6 @@ export function buildRenderPlan(
         densityMode: config.profile.densityMode,
         footerPolicy: config.profile.footerPolicy,
         assetPolicy: config.profile.assetPolicy,
-        themeOptions: config.themeOptions,
       },
       slides,
       output: config.output,

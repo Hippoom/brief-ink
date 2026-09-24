@@ -315,7 +315,7 @@ export interface ResolvedProfile {
   qa: RenderQaPolicy;
 }
 
-/** Provider-owned Theme options. Core preserves these values but never interprets them. */
+/** Provider-owned Theme options. Kept in the in-process resolved configuration for adapter use. */
 export type ThemeOptions = Readonly<Record<string, unknown>>;
 
 export interface ThemeTemplateMapping {
@@ -376,8 +376,6 @@ export interface RenderPlan {
     densityMode: ResolvedProfile['densityMode'];
     footerPolicy: ResolvedProfile['footerPolicy'];
     assetPolicy: ResolvedProfile['assetPolicy'];
-    /** Provider-owned resolved options, persisted opaquely for the selected Theme. */
-    themeOptions?: ThemeOptions;
   };
   slides: RenderPlanSlide[];
   output: RenderOutputPolicy;
